@@ -1,0 +1,18 @@
+.notification-success {
+  color: green;
+  outline: auto;
+  background-color: #ececec;
+  font-size: 20px;
+  margin-bottom: 10px;
+  padding: 10px;
+  max-width: 40%;
+}
+.notification-fail {
+  color: red;
+  outline: auto;
+  background-color: #ececec;
+  font-size: 20px;
+  margin-bottom: 10px;
+  padding: 10px;
+  max-width: 40%;
+}
