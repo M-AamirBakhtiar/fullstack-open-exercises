@@ -1,0 +1,9 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+  "title": "Full Refactor Blog Post",
+  "author": "Full Refactor Test Author",
+  "url": "Full Refactor url",
+  "likes" : 20
+}

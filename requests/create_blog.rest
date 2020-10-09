@@ -1,9 +1,0 @@
-POST http://localhost:3003/api/blogs
-Content-Type: application/json
-
-{
-  "title": "Refactored Blog Post",
-  "author": "Refactor Test Author",
-  "url": "Refactor url",
-  "likes" : 20
-}
