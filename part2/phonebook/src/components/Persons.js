@@ -1,22 +1,27 @@
 import React from 'react';
 import Person from './Person';
 
-const Persons = ({ regularResults, filteredResults, deletePerson }) => {
+const Persons = ({
+  regularResults,
+  filteredResults,
+  removePerson,
+  searchInput,
+}) => {
   return (
     <>
-      {filteredResults.length > 0
+      {searchInput.length > 0
         ? filteredResults.map((person) => (
             <Person
               key={person.name}
               person={person}
-              handleDelete={deletePerson}
+              handleDelete={removePerson}
             />
           ))
         : regularResults.map((person) => (
             <Person
               key={person.name}
               person={person}
-              handleDelete={deletePerson}
+              handleDelete={removePerson}
             />
           ))}
     </>

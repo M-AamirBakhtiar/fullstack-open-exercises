@@ -81,26 +81,54 @@ const App = () => {
         name: newName,
         number: newNumber,
       };
-      personService.create(newContact).then((returnedContact) => {
-        setPersons(persons.concat(returnedContact));
-        setNewName('');
-        setNewNumber('');
-        setNotification(`Added ${newName}`);
-        setNotificationSucess(true);
-        setTimeout(() => {
-          setNotification(null);
-          setNotificationSucess(null);
-        }, 5000);
-      });
+      personService
+        .create(newContact)
+        .then((returnedContact) => {
+          setPersons(persons.concat(returnedContact));
+          setNewName('');
+          setNewNumber('');
+          setNotification(`Added ${newName}`);
+          setNotificationSucess(true);
+          setTimeout(() => {
+            setNotification(null);
+            setNotificationSucess(null);
+          }, 5000);
+        })
+        .catch((error) => {
+          setNotification(error.response.data.error);
+          setNotificationSucess(false);
+          setTimeout(() => {
+            setNotification(null);
+            setNotificationSucess(null);
+          }, 5000);
+        });
     }
   };
 
   const deletePerson = (id) => {
-    const person = persons.find((person) => person.id === id);
-    if (window.confirm(`Delete ${person.name} ?`)) {
-      personService.remove(id).then((returnedContact) => {
-        setPersons(persons.filter((person) => person.id !== id));
-      });
+    const toDelete = persons.find((person) => person.id === id);
+    const ok = window.confirm(`Delete ${toDelete.name} ?`);
+    if (ok) {
+      personService
+        .remove(id)
+        .then((response) => {
+          setPersons(persons.filter((person) => person.id !== id));
+          setNotification(`Deleted ${toDelete.name}`);
+          setNotificationSucess(false);
+          setTimeout(() => {
+            setNotification(null);
+            setNotificationSucess(null);
+          }, 5000);
+        })
+        .catch(() => {
+          setPersons(persons.filter((person) => person.id !== id));
+          setNotification(`${toDelete.name} had already been removed`);
+          setNotificationSucess(false);
+          setTimeout(() => {
+            setNotification(null);
+            setNotificationSucess(null);
+          }, 5000);
+        });
     }
   };
 
@@ -124,7 +152,8 @@ const App = () => {
       <Persons
         regularResults={persons}
         filteredResults={filteredPersons}
-        deletePerson={deletePerson}
+        removePerson={deletePerson}
+        searchInput={searchPerson}
       />
     </div>
   );
